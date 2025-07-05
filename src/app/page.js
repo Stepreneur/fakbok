@@ -63,7 +63,7 @@ export default function TiktokStyle() {
 
             {/* Main Content Card */}
             <motion.div 
-              className="flex flex-col justify-center items-start gap-5 w-[80vw] h-max  min-h-[40vh] bg-white/10 backdrop-blur-lg rounded-3xl p-6 shadow-2xl border border-white/20"
+              className="flex flex-col justify-center items-start gap-5 w-[80vw] h-max max-h-[80vh] min-h-[40vh] bg-white/10 backdrop-blur-lg rounded-3xl p-6 shadow-2xl border border-white/20"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.3 }}
@@ -72,7 +72,7 @@ export default function TiktokStyle() {
                 <Image  src={posts[index].src} alt="post" width={100} height={100} className='object-cover min-w-[50px] min-h-[50px] w-[50px] h-[50px] rounded-full self-start' />
                 <div className='flex flex-row  w-max h-max'>
                     
-                  <div className="text-start bg-black/10 text-white p-5 rounded-xl text-3xl leading-relaxed">{posts[index].content}</div>
+                  <div className="text-start bg-black/10 text-white p-5 rounded-xl text-xl leading-relaxed">{posts[index].content}</div>
               
                 </div>
               </div>
