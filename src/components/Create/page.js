@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect } from "react";
 import { PlusIcon, X, Upload, Instagram } from "lucide-react";
+import Image from "next/image";
 
 export default function Create({ onPostCreated }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -166,11 +167,14 @@ export default function Create({ onPostCreated }) {
                                         className="flex items-center justify-center w-full h-[120px] bg-white/20 border-2 border-dashed border-white/30 rounded-xl cursor-pointer hover:bg-white/30 transition-colors"
                                     >
                                         {imagePreview ? (
-                                            <img 
-                                                src={imagePreview} 
-                                                alt="Preview" 
-                                                className="max-w-full max-h-full object-cover rounded-lg"
-                                            />
+                                            <div className="relative w-full h-full">
+                                                <Image 
+                                                    src={imagePreview} 
+                                                    alt="Preview" 
+                                                    fill
+                                                    className="object-cover rounded-lg"
+                                                />
+                                            </div>
                                         ) : (
                                             <div className="text-center text-white/70">
                                                 <Upload className="w-8 h-8 mx-auto mb-2" />

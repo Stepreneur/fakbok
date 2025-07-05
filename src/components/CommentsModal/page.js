@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { X, Send, Clock } from "lucide-react";
 
 export default function CommentsModal({ isOpen, onClose, postId, post }) {
@@ -8,14 +8,9 @@ export default function CommentsModal({ isOpen, onClose, postId, post }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    // Fetch comments when modal opens
-    useEffect(() => {
-        if (isOpen && postId) {
-            fetchComments();
-        }
-    }, [isOpen, postId]);
-
-    const fetchComments = async () => {
+    const fetchComments = useCallback(async () => {
+        if (!postId) return;
+        
         try {
             setLoading(true);
             const response = await fetch(`/api/posts?postId=${postId}`);
@@ -29,7 +24,14 @@ export default function CommentsModal({ isOpen, onClose, postId, post }) {
         } finally {
             setLoading(false);
         }
-    };
+    }, [postId]);
+
+    // Fetch comments when modal opens
+    useEffect(() => {
+        if (isOpen && postId) {
+            fetchComments();
+        }
+    }, [isOpen, postId, fetchComments]);
 
     const handleSubmitComment = async (e) => {
         e.preventDefault();

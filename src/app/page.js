@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, MessageCircle, Share2, User, Clock, CheckCircle, Instagram } from 'lucide-react';
 import Image from 'next/image';
@@ -8,7 +8,7 @@ import CommentsModal from '@/components/CommentsModal/page';
 import ImageModal from '@/components/ImageModal/page';
 import { useSearchParams } from 'next/navigation';
 
-export default function TiktokStyle() {
+function TiktokStyleContent() {
   const [isLogged, setIsLogged] = useState(false);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -399,5 +399,17 @@ export default function TiktokStyle() {
       
       <Create onPostCreated={handleNewPost} />
     </div>
+  );
+}
+
+export default function TiktokStyle() {
+  return (
+    <Suspense fallback={
+      <div className="h-screen flex items-center justify-center bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
+        <div className="text-white text-xl">กำลังโหลด...</div>
+      </div>
+    }>
+      <TiktokStyleContent />
+    </Suspense>
   );
 }
