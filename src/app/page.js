@@ -77,7 +77,6 @@ export default function TiktokStyle() {
                 </div>
               </div>
               
-              <Image  src={'/upload/3.png'} alt="post" width={500} height={500} className='object-contain w-[100px] h-auto rounded-xl self-start' />
             </motion.div>
 
             {/* Interaction Buttons */}
