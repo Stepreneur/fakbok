@@ -3,6 +3,14 @@ import { PrismaClient } from '@prisma/client';
 import { writeFile } from 'fs/promises';
 import { join } from 'path';
 import { randomUUID } from 'crypto';
+import cloudinary from 'cloudinary';
+
+// Cloudinary config (requires CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET in .env)
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const prisma = new PrismaClient();
 
@@ -20,17 +28,34 @@ export async function POST(request) {
     if (image && image.size > 0) {
       const bytes = await image.arrayBuffer();
       const buffer = Buffer.from(bytes);
-      
-      // Generate unique filename with UUID
-      const fileExtension = image.name.split('.').pop();
-      const fileName = `${randomUUID()}.${fileExtension}`;
-      
-      // Save file to upload directory
-      const uploadPath = join(process.cwd(), 'public', 'upload', fileName);
-      await writeFile(uploadPath, buffer);
-      
-      // Set src to the relative path
-      src = `/upload/${fileName}`;
+      try {
+        // Upload to Cloudinary
+        const uploadResult = await cloudinary.v2.uploader.upload_stream({
+          folder: 'fakbok',
+          resource_type: 'image',
+        }, (error, result) => {
+          if (error) throw error;
+          return result;
+        });
+        // Use a Promise wrapper for upload_stream
+        const result = await new Promise((resolve, reject) => {
+          const stream = cloudinary.v2.uploader.upload_stream({
+            folder: 'fakbok',
+            resource_type: 'image',
+          }, (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          });
+          stream.end(buffer);
+        });
+        src = result.secure_url;
+      } catch (err) {
+        console.error('Cloudinary upload error:', err);
+        return NextResponse.json(
+          { success: false, error: 'Failed to upload image to Cloudinary' },
+          { status: 500 }
+        );
+      }
     }
 
     // Create post in database
@@ -151,7 +176,6 @@ export async function GET(request) {
       } else {
         timeAgo = `${diffInMinutes} นาที`;
       }
-      
       return {
         ...post,
         timeAgo
@@ -176,4 +200,4 @@ export async function GET(request) {
       { status: 500 }
     );
   }
-} 
+}

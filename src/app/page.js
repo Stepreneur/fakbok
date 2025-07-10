@@ -199,44 +199,44 @@ function TiktokStyleContent() {
       )}
 
       {posts.length > 0 && (
-        <AnimatePresence initial={false}>
-          <motion.div
+      <AnimatePresence initial={false}>
+        <motion.div
             key={posts[index]?.id || index}
-            initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -100, opacity: 0 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-            drag="y"
-            dragConstraints={{ top: 0, bottom: 0 }}
-            onDragEnd={(e, info) => {
-              if (info.offset.y < -100) handleSwipe('up');
-              else if (info.offset.y > 100) handleSwipe('down');
-            }}
-            className="h-screen w-full absolute flex items-center justify-center p-6"
-          >
-            <div className="flex flex-col justify-center items-center max-w-md mx-auto space-y-6">
-              {/* Grade Badge */}
-              <motion.div 
-                className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.2 }}
-              >
-                <User size={16} />
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -100, opacity: 0 }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+          drag="y"
+          dragConstraints={{ top: 0, bottom: 0 }}
+          onDragEnd={(e, info) => {
+            if (info.offset.y < -100) handleSwipe('up');
+            else if (info.offset.y > 100) handleSwipe('down');
+          }}
+          className="h-screen w-full absolute flex items-center justify-center p-6"
+        >
+          <div className="flex flex-col justify-center items-center max-w-md mx-auto space-y-6">
+            {/* Grade Badge */}
+            <motion.div 
+              className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              <User size={16} />
                 {posts[index]?.tag == 0 ? (
                   <span className='text-white/70 text-sm'>ไม่มีแท็ก</span>
                 ) :(
                   <span className='text-white/70 text-sm'>ชั้น ม.{posts[index]?.tag || 0}</span>
                 ) }
-              </motion.div>
+            </motion.div>
 
-              {/* Main Content Card */}
-              <motion.div 
-                className="flex flex-col justify-center items-start gap-5 w-[80vw] h-max max-h-[80vh] min-h-[40vh] bg-white/10 backdrop-blur-lg rounded-3xl p-6 shadow-2xl border border-white/20"
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.3 }}
-              >
+            {/* Main Content Card */}
+            <motion.div 
+              className="flex flex-col justify-center items-start gap-5 w-[80vw] h-max max-h-[80vh] min-h-[40vh] bg-white/10 backdrop-blur-lg rounded-3xl p-6 shadow-2xl border border-white/20"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
                 <div className='flex flex-row w-full h-max gap-2'>
                   {/* Profile Image - Random */}
                   <div 
@@ -255,7 +255,7 @@ function TiktokStyleContent() {
                     <div className="text-start bg-black/10 text-white p-5 rounded-xl text-xl leading-relaxed">
                       {posts[index]?.content || 'ไม่มีเนื้อหา'}
                     </div>
-                    
+              
                    
 
                     {/* src */}
@@ -281,45 +281,45 @@ function TiktokStyleContent() {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+            </motion.div>
 
-              {/* Interaction Buttons */}
-              <motion.div 
-                className="flex justify-center items-center gap-4 w-full"
-                initial={{ y: 50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.4 }}
-              >
-                <button 
+            {/* Interaction Buttons */}
+            <motion.div 
+              className="flex justify-center items-center gap-4 w-full"
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              <button 
                   onClick={handleLike}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${
                     likedPosts.has(posts[index]?.id) || liked
-                      ? 'bg-red-500 text-white shadow-lg' 
-                      : 'bg-white/20 text-white hover:bg-white/30'
-                  }`}
-                >
+                    ? 'bg-red-500 text-white shadow-lg' 
+                    : 'bg-white/20 text-white hover:bg-white/30'
+                }`}
+              >
                   <Heart size={30} fill={likedPosts.has(posts[index]?.id) || liked ? 'currentColor' : 'none'} />
                   {posts[index]?.likeCount > 0 && (
                     <span className="text-sm font-medium">{posts[index].likeCount}</span>
                   )}
-                </button>
+              </button>
 
                 <button 
                   onClick={() => setShowComments(true)}
                   className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 text-white hover:bg-white/30 transition-all duration-300"
                 >
-                  <MessageCircle size={30} />
-                </button>
+                <MessageCircle size={30} />
+              </button>
 
                 <button 
                   onClick={handleShare}
                   className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 text-white hover:bg-white/30 transition-all duration-300"
                 >
-                  <Share2 size={30} />
-                  <span className="text-sm font-medium">แชร์</span>
-                </button>
+                <Share2 size={30} />
+                <span className="text-sm font-medium">แชร์</span>
+              </button>
                 
-              </motion.div>
+            </motion.div>
               {/* IG Link */}
               {posts[index]?.igLink && (
                       <a 
@@ -332,18 +332,18 @@ function TiktokStyleContent() {
                         <span>ลิงค์ที่ผู้ใช้แปะ</span>
                       </a>
                     )}
-            </div>
+          </div>
 
-            {/* Scroll indicator */}
-            <div className="absolute bottom-8 right-50% flex flex-col items-center gap-2">
-              <div className="text-white/60 text-xs">เลื่อนเพื่อดูต่อ</div>
-              <div className="w-1 h-8 bg-white/20 rounded-full overflow-hidden">
-                <div 
-                  className="w-full bg-white/60 rounded-full transition-all duration-300"
-                  style={{ height: `${((index + 1) / posts.length) * 100}%` }}
-                ></div>
-              </div>
+          {/* Scroll indicator */}
+          <div className="absolute bottom-8 right-50% flex flex-col items-center gap-2">
+            <div className="text-white/60 text-xs">เลื่อนเพื่อดูต่อ</div>
+            <div className="w-1 h-8 bg-white/20 rounded-full overflow-hidden">
+              <div 
+                className="w-full bg-white/60 rounded-full transition-all duration-300"
+                style={{ height: `${((index + 1) / posts.length) * 100}%` }}
+              ></div>
             </div>
+          </div>
 
             {/* Loading indicator for infinite scroll */}
             {loading && hasMore && (
@@ -378,8 +378,8 @@ function TiktokStyleContent() {
                 </div>
               </motion.div>
             )}
-          </motion.div>
-        </AnimatePresence>
+        </motion.div>
+      </AnimatePresence>
       )}
       
       {/* Comments Modal */}
