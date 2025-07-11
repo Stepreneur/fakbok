@@ -360,7 +360,7 @@ function TiktokStyleContent() {
                 }`}
               >
                   <Heart size={30} fill={likedPosts.has(posts[index]?.id) || liked ? 'currentColor' : 'none'} />
-                  {posts[index]?.likeCount > 0 && (
+                  {posts[index]?.likeCount >= 0 && (
                     <span className="text-sm font-medium">{posts[index].likeCount}</span>
                   )}
               </button>
