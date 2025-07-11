@@ -277,7 +277,7 @@ function TiktokStyleContent() {
           <div className="flex flex-col justify-center items-center max-w-md mx-auto space-y-6">
             {/* Grade Badge */}
             <motion.div 
-              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold shadow-lg ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm  font-semibold shadow-lg ${
                 posts[index]?.tag == tagGrade && tagGrade !== "not chosed"
                   ? "bg-gradient-to-r from-purple-500 to-indigo-500 !text-white border-2 border-yellow-300 animate-pulse"
                   : "bg-gradient-to-r from-gray-500 to-gray-600 !text-white"
@@ -299,7 +299,7 @@ function TiktokStyleContent() {
 
             {/* Main Content Card */}
             <motion.div 
-              className={`flex flex-col justify-center relative items-start gap-2 w-max h-max max-h-[80vh] pt-15 backdrop-blur-lg rounded-3xl p-6 shadow-2xl ${
+              className={`flex flex-col justify-center relative items-start gap-2 w-max h-max max-w-[80vw] max-h-[80vh] pt-15 backdrop-blur-lg rounded-3xl p-6 shadow-2xl ${
                 posts[index]?.tag == tagGrade && tagGrade !== "not chosed"
                   ? "bg-gradient-to-br from-purple-500/20 to-indigo-500/20 border-2 border-yellow-300/50"
                   : "bg-gray-500/10 border border-gray-400/20"
