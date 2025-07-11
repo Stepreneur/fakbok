@@ -19,6 +19,7 @@ model post {
   src String?
   igLink String?
   likeCount Int @default(0)
+  commentCount Int @default(0)
   createdAt DateTime @default(now())
   comments comment[]
 }

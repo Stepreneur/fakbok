@@ -23,6 +23,13 @@ export async function POST(request) {
       }
     });
 
+    if (comment) {
+      await prisma.post.update({
+        where: { id: parseInt(postId) },
+        data: { commentCount: { increment: 1 } }
+      });
+    }
+
     // Update post like count
     await prisma.post.update({
       where: { id: parseInt(postId) },
@@ -32,6 +39,7 @@ export async function POST(request) {
         }
       }
     });
+
 
     return NextResponse.json({ 
       success: true, 

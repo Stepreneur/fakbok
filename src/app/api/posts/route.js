@@ -91,6 +91,7 @@ export async function GET(request) {
     const limit = parseInt(searchParams.get('limit')) || 10;
     const skip = (page - 1) * limit;
     const postId = searchParams.get('postId');
+    const userTag = searchParams.get('userTag'); // เพิ่ม parameter สำหรับ user tag
 
     // If postId is provided, get specific post with comments
     if (postId) {
@@ -136,28 +137,58 @@ export async function GET(request) {
     // Calculate 24 hours ago
     const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
 
-    // Get posts from last 24 hours with pagination
-    const posts = await prisma.post.findMany({
-      where: {
-        createdAt: {
-          gte: twentyFourHoursAgo
-        }
-      },
-      orderBy: {
-        createdAt: 'desc'
-      },
-      skip,
-      take: limit
-    });
+    let posts;
+    let totalPosts;
 
-    // Get total count for pagination
-    const totalPosts = await prisma.post.count({
-      where: {
-        createdAt: {
-          gte: twentyFourHoursAgo
+    // ถ้ามี userTag ให้กรองโพสต์ตาม tag และให้ความสำคัญกับโพสต์ที่ตรงกับ tag ของผู้ใช้
+    if (userTag && userTag !== 'null' && userTag !== 'not chosed') {
+      const userTagInt = parseInt(userTag);
+      
+      // ดึงโพสต์ทั้งหมดใน 24 ชั่วโมงที่ผ่านมา
+      const allPosts = await prisma.post.findMany({
+        where: {
+          createdAt: {
+            gte: twentyFourHoursAgo
+          }
+        },
+        orderBy: {
+          createdAt: 'desc'
         }
-      }
-    });
+      });
+
+      // แยกโพสต์ที่ตรงกับ tag ของผู้ใช้และโพสต์อื่นๆ
+      const matchingTagPosts = allPosts.filter(post => post.tag === userTagInt);
+      const otherPosts = allPosts.filter(post => post.tag !== userTagInt);
+
+      // รวมโพสต์โดยให้โพสต์ที่ตรงกับ tag มาก่อน
+      const combinedPosts = [...matchingTagPosts, ...otherPosts];
+      
+      // คำนวณ pagination
+      totalPosts = combinedPosts.length;
+      posts = combinedPosts.slice(skip, skip + limit);
+    } else {
+      // ถ้าไม่มี userTag ให้ดึงโพสต์ตามปกติ
+      posts = await prisma.post.findMany({
+        where: {
+          createdAt: {
+            gte: twentyFourHoursAgo
+          }
+        },
+        orderBy: {
+          createdAt: 'desc'
+        },
+        skip,
+        take: limit
+      });
+
+      totalPosts = await prisma.post.count({
+        where: {
+          createdAt: {
+            gte: twentyFourHoursAgo
+          }
+        }
+      });
+    }
 
     // Calculate time ago for each post
     const postsWithTimeAgo = posts.map(post => {
