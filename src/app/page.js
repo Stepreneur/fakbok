@@ -24,6 +24,7 @@ function TiktokStyleContent() {
   const [showComments, setShowComments] = useState(false);
   const [showImageModal, setShowImageModal] = useState(false);
   const [likedPosts, setLikedPosts] = useState(new Set());
+  const [hasHandledSharedPost, setHasHandledSharedPost] = useState(false);
 
   const searchParams = useSearchParams();
   const sharedPostId = searchParams.get('post');
@@ -84,6 +85,8 @@ function TiktokStyleContent() {
           setPosts(prev => [...prev, ...postsWithProfileImages]);
         } else {
           setPosts(postsWithProfileImages);
+          // Reset shared post handling when loading new posts
+          setHasHandledSharedPost(false);
         }
         setHasMore(data.pagination.hasMore);
         setCurrentPage(page);
@@ -101,15 +104,16 @@ function TiktokStyleContent() {
     fetchPosts(1, false);
   }, [fetchPosts, tagGrade]);
 
-  // Handle shared post
+  // Handle shared post - only run once when posts are first loaded
   useEffect(() => {
-    if (sharedPostId && posts.length > 0) {
+    if (sharedPostId && posts.length > 0 && !hasHandledSharedPost) {
       const sharedIndex = posts.findIndex(post => post.id === parseInt(sharedPostId));
       if (sharedIndex !== -1) {
         setIndex(sharedIndex);
+        setHasHandledSharedPost(true);
       }
     }
-  }, [sharedPostId, posts]);
+  }, [sharedPostId, posts.length, hasHandledSharedPost]); // Only run once when posts are loaded
 
   // Load more posts when reaching the end
   const loadMorePosts = useCallback(() => {

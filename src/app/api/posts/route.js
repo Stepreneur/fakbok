@@ -95,11 +95,17 @@ export async function GET(request) {
 
     // If postId is provided, get specific post with comments
     if (postId) {
+      const commentPage = parseInt(searchParams.get('commentPage')) || 1;
+      const commentLimit = parseInt(searchParams.get('commentLimit')) || 5;
+      const commentSkip = (commentPage - 1) * commentLimit;
+
       const post = await prisma.post.findUnique({
         where: { id: parseInt(postId) },
         include: {
           comments: {
-            orderBy: { createdAt: 'desc' }
+            orderBy: { createdAt: 'desc' },
+            skip: commentSkip,
+            take: commentLimit
           }
         }
       });
