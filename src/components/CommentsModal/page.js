@@ -157,7 +157,7 @@ export default function CommentsModal({ isOpen, onClose, postId, post }) {
             <div className="w-full max-w-md bg-white/10 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/20 max-h-[80vh] flex flex-col">
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-white/20">
-                    <h2 className="text-white text-xl font-bold">คอมเม้น</h2>
+                    <h2 className="!text-white text-xl font-bold">คอมเม้น</h2>
                     <div className="flex items-center gap-2">
                         <button 
                             onClick={handleRefreshComments}
@@ -181,19 +181,18 @@ export default function CommentsModal({ isOpen, onClose, postId, post }) {
                     className="flex-1 overflow-y-auto p-6 space-y-4"
                 >
                     {loading ? (
-                        <div className="text-center text-white/60">กำลังโหลดคอมเม้น...</div>
+                        <div className="text-center !text-white/60">กำลังโหลดคอมเม้น...</div>
                     ) : comments.length === 0 ? (
-                        <div className="text-center text-white/60">ยังไม่มีคอมเม้น</div>
+                        <div className="text-center !text-white/60">ยังไม่มีคอมเม้น</div>
                     ) : (
                         <>
                             {comments.map((comment, index) => (
                                 <div key={`${comment.id}-${comment.createdAt}-${index}`} className="bg-white/10 rounded-xl p-4">
-                                    <div className="text-white text-sm leading-relaxed mb-2">
+                                    <div className="!text-white text-sm leading-relaxed mb-2">
                                         {comment.content}
                                     </div>
-                                    <div className="flex items-center gap-2 text-white/50 text-xs">
-                                        <Clock size={12} />
-                                        <span>{formatTimeAgo(comment.createdAt)}</span>
+                                    <div className="flex items-center gap-2 !text-white/50 text-xs">
+                                        <span className="!text-white/50">{formatTimeAgo(comment.createdAt)}</span>
                                     </div>
                                 </div>
                             ))}
@@ -202,13 +201,13 @@ export default function CommentsModal({ isOpen, onClose, postId, post }) {
                             {loadingMore && (
                                 <div className="flex items-center justify-center py-4">
                                     <Loader2 className="w-5 h-5 text-white/60 animate-spin" />
-                                    <span className="ml-2 text-white/60 text-sm">กำลังโหลดคอมเม้นเพิ่ม...</span>
+                                    <span className="ml-2 !text-white/60 text-sm">กำลังโหลดคอมเม้นเพิ่ม...</span>
                                 </div>
                             )}
                             
                             {/* End of comments indicator */}
                             {!hasMore && comments.length > 0 && (
-                                <div className="text-center text-white/40 text-sm py-4">
+                                <div className="text-center !text-white/40 text-sm py-4">
                                     ไม่มีคอมเม้นเพิ่มเติม
                                 </div>
                             )}
@@ -224,13 +223,13 @@ export default function CommentsModal({ isOpen, onClose, postId, post }) {
                             value={newComment}
                             onChange={(e) => setNewComment(e.target.value)}
                             placeholder="เขียนคอมเม้น..."
-                            className="flex-1 bg-white/20 text-white placeholder-white/50 rounded-xl px-4 py-3 border border-white/30 focus:outline-none focus:border-white/50"
+                            className="flex-1 bg-white/20 !text-white placeholder-white/50 rounded-xl px-4 py-3 border border-white/30 focus:outline-none focus:border-white/50"
                             maxLength={200}
                         />
                         <button
                             type="submit"
                             disabled={isSubmitting || !newComment.trim()}
-                            className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl flex items-center justify-center hover:from-blue-600 hover:to-purple-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-12 h-12 bg-white !text-white rounded-xl flex items-center justify-center hover:from-blue-600 hover:to-purple-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             <Send className="w-5 h-5" />
                         </button>

@@ -97,7 +97,7 @@ export default function Create({ onPostCreated }) {
         <div className="fixed top-0 right-0 w-[100vw] h-[100vh] bg-transparent pointer-events-none">
             {!isOpen && (
                 <button 
-                    className="fixed flex justify-center items-center bottom-10 right-10 w-[50px] h-[50px] bg-white rounded-full pointer-events-auto z-50 shadow-lg hover:bg-gray-100 transition-colors" 
+                    className="fixed flex justify-center items-center bottom-10 right-10 w-[50px] h-[50px] bg-black/10 rounded-full pointer-events-auto z-50 shadow-lg hover:bg-gray-100 transition-colors" 
                     onClick={() => setIsOpen(true)}
                 >
                     <PlusIcon className="w-6 h-6 text-black" />
@@ -107,41 +107,41 @@ export default function Create({ onPostCreated }) {
             {isOpen && (
                 <div className="fixed top-0 right-0 w-[100vw] h-[100vh] bg-black/90 flex flex-col justify-center items-center pointer-events-auto">
                     <button 
-                        className="fixed top-10 right-10 w-[50px] h-[50px] bg-white rounded-full flex items-center justify-center z-50 hover:bg-gray-100 transition-colors" 
+                        className="fixed top-10 right-10 w-[50px] h-[50px] bg-white  rounded-full flex items-center justify-center z-50 hover:bg-gray-100 transition-colors" 
                         onClick={closeModal}
                     >
                         <X className="w-6 h-6 text-black" />
                     </button>
                     
                     <div className="w-[90vw] max-w-md bg-white/10 backdrop-blur-lg rounded-3xl p-6 shadow-2xl border border-white/20">
-                        <h2 className="text-white text-xl font-bold text-center mb-6">สร้างโพสต์ใหม่</h2>
+                        <h2 className="!text-white text-xl font-bold text-center mb-6">สร้างโพสต์ใหม่</h2>
                         
                         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                             {/* Content Input */}
                             <div>
                                 <textarea 
-                                    className="w-full h-[100px] bg-white/20 text-white placeholder-white/70 rounded-xl p-4 resize-none border border-white/30 focus:outline-none focus:border-white/50"
+                                    className="w-full h-[100px] bg-white/20  placeholder-black/70 rounded-xl p-4 resize-none border border-white/30 focus:outline-none focus:border-white/50"
                                     placeholder="พิมพ์ฝากบอก..."
                                     value={content}
                                     onChange={(e) => setContent(e.target.value)}
                                     maxLength={500}
                                     required
                                 />
-                                <div className="text-white/60 text-sm text-right mt-1">
+                                <div className="!text-white/60 text-sm text-right mt-1">
                                     {content.length}/500
                                 </div>
                             </div>
 
                             {/* IG Link Input */}
                             <div>
-                                <label className="block text-white text-sm font-medium mb-2">
-                                    ลิงค์ Instagram (ไม่บังคับ)
+                                <label className="block !text-white text-sm font-medium mb-2">
+                                    แปะลิงค์ IG , อื่นๆ (ไม่บังคับ)
                                 </label>
                                 <div className="relative">
-                                    <Instagram className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50 w-5 h-5" />
+                                    <Instagram className="absolute left-3 top-1/2 transform -translate-y-1/2 !text-white/50 w-5 h-5" />
                                     <input 
                                         type="url"
-                                        className="w-full h-[50px] bg-white/20 text-white placeholder-white/50 rounded-xl pl-12 pr-4 border border-white/30 focus:outline-none focus:border-white/50"
+                                        className="w-full h-[50px] bg-white/20 text-white placeholder-black/70 rounded-xl pl-12 pr-4 border border-white/30 focus:outline-none focus:border-white/50"
                                         placeholder="https://instagram.com/username"
                                         value={igLink}
                                         onChange={(e) => setIgLink(e.target.value)}
@@ -151,7 +151,7 @@ export default function Create({ onPostCreated }) {
 
                             {/* Image Upload */}
                             <div>
-                                <label className="block text-white text-sm font-medium mb-2">
+                                <label className="block !text-white text-sm font-medium mb-2">
                                     รูปภาพ (ไม่บังคับ)
                                 </label>
                                 <div className="relative">
@@ -176,7 +176,7 @@ export default function Create({ onPostCreated }) {
                                                 />
                                             </div>
                                         ) : (
-                                            <div className="text-center text-white/70">
+                                            <div className="text-center !text-white/70">
                                                 <Upload className="w-8 h-8 mx-auto mb-2" />
                                                 <div>คลิกเพื่อเลือกรูปภาพ</div>
                                             </div>
@@ -199,7 +199,7 @@ export default function Create({ onPostCreated }) {
 
                             {/* Tag Selection */}
                             <div>
-                                <label className="block text-white text-sm font-medium mb-2">
+                                <label className="block !text-white text-sm font-medium mb-2">
                                     ชั้นที่เกี่ยวข้อง (ไม่บังคับ)
                                 </label>
                                 <select 
@@ -232,7 +232,7 @@ export default function Create({ onPostCreated }) {
                             <button 
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full h-[50px] bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-purple-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full h-[50px] bg-black !text-white rounded-xl font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {isSubmitting ? "กำลังส่ง..." : "ส่งโพสต์"}
                             </button>

@@ -244,7 +244,7 @@ function TiktokStyleContent() {
   }
 
   return (
-    <div className="h-screen overflow-hidden relative bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
+    <div className="h-screen overflow-hidden relative !bg-white">
       {/* Animated background particles */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-blue-400/10 rounded-full blur-xl animate-pulse"></div>
@@ -423,7 +423,7 @@ function TiktokStyleContent() {
             {/* End message when trying to swipe beyond the last post */}
             {showEndMessage && (
               <motion.div 
-                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-lg rounded-2xl p-6 text-center shadow-2xl border border-white/30"
+                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white backdrop-blur-lg rounded-2xl p-6 text-center shadow-2xl border border-white/30"
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
@@ -439,7 +439,7 @@ function TiktokStyleContent() {
                       setIndex(0);
                       setShowEndMessage(false);
                     }}
-                    className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full hover:from-blue-600 hover:to-purple-600 transition-all duration-300"
+                    className="px-6 py-2 bg-black !text-white rounded-full hover:from-blue-600 hover:to-purple-600 transition-all duration-300"
                   >
                     ดูโพสต์แรก
                   </button>
