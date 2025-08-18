@@ -245,6 +245,7 @@ function TiktokStyleContent() {
 
   return (
     <div className="h-screen overflow-hidden relative !bg-white">
+      <div className='!text-black text-2xl font-bold absolute top-5 left-5'>Fakbok</div>
       {/* Animated background particles */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-blue-400/10 rounded-full blur-xl animate-pulse"></div>
@@ -439,7 +440,7 @@ function TiktokStyleContent() {
                       setIndex(0);
                       setShowEndMessage(false);
                     }}
-                    className="px-6 py-2 bg-black !text-white rounded-full hover:from-blue-600 hover:to-purple-600 transition-all duration-300"
+                    className="px-6 py-2 bg-black !text-white rounded-full hover:bg-gray-800 transition-all duration-300"
                   >
                     ดูโพสต์แรก
                   </button>
