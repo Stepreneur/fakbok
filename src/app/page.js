@@ -245,8 +245,8 @@ function TiktokStyleContent() {
 
   return (
     <div className="h-screen overflow-hidden relative !bg-white">
-      <div className='!text-black text-2xl font-bold fixed top-5 left-5'>Fakbok พ.ส.</div>
-      <Image src="/upload/ig_logo.png" alt="logo" width={35} height={35} className='fixed top-5 right-5 animate-bounce pointer-events-auto z-10' onClick={() => {
+      <div className='!text-black text-2xl font-bold fixed top-5 left-5'>Fakbok</div>
+      <Image src="/upload/ig_logo.png" alt="logo" width={35} height={35} className='fixed top-5 right-5 pointer-events-auto z-10' onClick={() => {
                      window.location.href = 'https://www.instagram.com/ps_classlinker/?utm_source=ig_web_button_share_sheet';
                     }}  />
       {/* Animated background particles */}
